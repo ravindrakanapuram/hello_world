@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% block title %}featureblog{% endblock %}
+{% block content %}
+
+<br><br><br><br><br><br><br>
+  <div class="row text-center"><h1>Latest Posts</h1></div>
+<div class="row"  style="max-width: 100%; min-height :100%;">
+  {% for post in posts %}
+    <div class="col-md-4 form-control-sm p-lg-5" style="line-height:4em">
+        <div class="card mb-2">
+            <img class="card-img-top" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60">
+            <div class="card-body">
+              <h5 class="card-title"><font size="5">({{forloop.counter}}).{{ post.title }}</font></h5>
+              <p class="card-body">{{ post.body|truncatewords:10|safe|linebreaks }}</p>
+              <h6 class="card-text fade" ><font size="1" style="color: rgb(231, 106, 106);"> Published {{ post.publish }} by 👨‍💻 {{ post.author }}</font></h6>
+              <p style="color:brown; font-size:smaller; ">category 👉 {{ post.category }}</p> 
+              <a href="{{ post.get_absolute_url }}" class="btn btn-danger btn-md">Let's Read</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h1 class="text-center">No Posts Yet Visit later </h1>
+    {% endfor %}
+</div>
+{% include "pagination.html" with page=posts %}
+{% endblock %}

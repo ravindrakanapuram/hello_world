@@ -1,0 +1,36 @@
+{% extends "blog/base.html" %}
+{% block title %}{{category.title}}{% endblock %}
+{% block content %}
+
+
+<br><br><br>
+<h1 class="m-lg-5 text-center pt-lg-5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+  <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+  <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
+</svg> {{category.title}}</h1>
+
+<div class="row">
+
+{% for post in category.posts.all %}
+<div class="col-md-4 p-lg-5">
+    <div class="card mb-2">
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60">
+        <div class="card-body">
+          <h5 class="card-title"><font size="5">({{forloop.counter}}).{{ post.title }}</font></h5>
+          <p class="card-body">{{ post.body|truncatewords:10|safe|linebreaks }}</p>
+          <h6 class="card-text fade" ><font size="1" style="color: rgb(232, 101, 101);"> Published {{ post.publish }} by 👨‍💻 {{ post.author }}</font></h6>
+          <p style="color:brown; font-size:smaller; ">category 👉 {{ post.category }}</p> 
+          <a href="{{ post.get_absolute_url }}" class="btn btn-danger btn-md">Let's Read</a>
+        </div>
+    </div>
+</div>
+{% empty  %}
+    <h1 class="text-center">Currently No Posts Yet Suggest to see you Later</h1>
+{% endfor %}
+</div>
+
+
+
+
+{% include "pagination.html" with page=posts %}
+{% endblock %}
